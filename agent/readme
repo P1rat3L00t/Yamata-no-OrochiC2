@@ -1,0 +1,52 @@
+          +--------------------+
+          |   LLM Mutation Core| <---- GPT-J, CodeLlama, or GPT-4 API
+          +--------------------+
+                    |
+                    v
+  +-----------+   AST Tools   +------------+
+  |  Agent.cpp| ------------> |Clang LibTool|
+  +-----------+               +------------+
+                    |
+            +----------------+
+            | Rule Engine /  |
+            | AI Mutation DB |
+            +----------------+
+                    |
+             +-------------+
+             | Validator / |
+             |  Executor   |
+             +-------------+
+                    |
+          +---------------------+
+          | Recompiled Output   |
+          +---------------------+
+
+             +--------------------------+
+             |   Mutated C++ Code       |
+             +------------+-------------+
+                          |
+                 [Live Validator Agent]
+                          |
+       +------------------+------------------+
+       |                                     |
++--------------+                   +------------------+
+| Compilation  | < clang++ >       |   Functional Test |
++--------------+                   +------------------+
+       |                                     |
+  +----v----+                         +------v------+
+  | Success? |----------------------->| Output Match |
+  +----+----+                         +------+-------+
+       |                                     |
+  +----v----+                         +------v------+
+  | Verdict |                         |   Logging /  |
+  | (Pass/Fail)                       |  Regression   |
+  +---------+                         +--------------+
+
+## clang++ mutated.cpp -o mutated_bin -std=c++17 -Wall -Wextra
+
+## example:
+./mutated_bin > mutated.out
+./original_bin > original.out
+diff mutated.out original.out
+
+
