@@ -1,6 +1,6 @@
 
 
-# Yamata-no-OrochiC2: Fileless C2 Malware Research (PoC)
+# OrochiC2: Fileless Malware Research (PoC)
 
 > **Warning**  
 > This project is **strictly for educational, authorized research, and penetration testing in isolated lab environments**.  
