@@ -10,7 +10,8 @@
 ---
 
 
-![images](https://github.com/user-attachments/assets/30f3a90b-fac0-4820-a747-cc60484e1bbb)
+![Yamatanoorochi](https://github.com/user-attachments/assets/08948de4-0ae9-4863-8b74-0454bb3a1446)
+
 
 ---
 
