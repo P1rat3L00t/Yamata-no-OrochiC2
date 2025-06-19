@@ -47,39 +47,6 @@
 
 ---
 
-## Features
-
-- **Fileless Attack Simulation:** Execute payloads entirely in-memory with native Windows tools.
-- **Privilege Escalation:** Showcases escalation via Print Spooler and HiveNightmare vulnerabilities.
-- **Credential Theft:** Demonstrates credential extraction using LOLBins and memory attacks.
-- **Reflective DLL Injection:** In-memory module execution with minimal artifacts.
-- **Detection & Mitigation Guidance:** MITRE ATT&CK mapping and blue team recommendations.
-- **Modular Payloads:** Examples in Batch, PowerShell, C, C++, Python, and HTML.
-
----
-
-## Getting Started
-
-### Prerequisites
-
-- Windows 10/11 **lab environment** (never test on production systems)
-- Visual Studio (for C/C++ project builds)
-- PowerShell 5.0+
-- 7-Zip (for extracting embedded payloads)
-
-### Build Instructions
-
-1. **Clone the repository:**
-    ```bash
-    git clone https://github.com/MrF0XTUT/Yamata-no-OrochiC2.git
-    cd Yamata-no-OrochiC2
-    ```
-2. **Build DLL/executable payloads:**
-    - Open `core/Yamata-no-OrochiC2.sln` in Visual Studio and build, **or**
-    - Use provided build scripts (see `build_windows.bat`)
-
----
-
 ## Technical Overview
 
 This project focuses on simulating fileless ransomware and C2 attack chains, including:
