@@ -1,4 +1,4 @@
-# WatchTower
+# Blue Team:
 Windows 11 LOG analysis report.
 Here’s a structured summary of the **“Hardening Microsoft Windows 10 and Windows 11 Workstations”** (July 2024) PDF from Australia’s Cyber.gov.au:
 
