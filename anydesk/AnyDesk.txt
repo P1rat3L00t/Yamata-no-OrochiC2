@@ -1,3 +1,11 @@
+## install
 C:\ProgramData\AnyDesk.exe --install ... --start-with-win --silent
 echo password|…--set-password
 net user attacker /add …
+
+## anydesk cves 
+CVE-2024-52940
+CVE-2024-12754
+CVE-2023-26509
+CVE-2022-32450
+CVE-2021-44426
