@@ -1,6 +1,6 @@
 
 
-# OrochiC2: Fileless Malware Research (PoC)
+# Blue Fire: Fileless Malware Research (PoC)
 
 > **Warning**  
 > This project is **strictly for educational, authorized research, and penetration testing in isolated lab environments**.  
