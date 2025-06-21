@@ -1,0 +1,16 @@
+
+.ps1 5 dropper.ps1
+
+.exe 4 hivenightmare.exe 
+
+.bat 3 win32.bat
+
+.jpg 1 nsfw.jpg
+
+.sys 8 lololololololollololol non of this matters :D
+
+.txt 7
+
+.dll 6
+
+.7z 2
