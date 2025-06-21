@@ -60,5 +60,6 @@ def install_anydesk(install_path="C:\\ProgramData\\AnyDesk",
         print(f"Error: {e}")
         print("Installation failed.")
 
-# Call the install_anydesk function with default values
-install_anydesk()
+if __name__ == "__main__":
+    # Call the install_anydesk function with default values
+    install_anydesk()

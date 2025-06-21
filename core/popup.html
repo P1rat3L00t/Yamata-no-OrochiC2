@@ -86,6 +86,37 @@
             font-size: 12px;
             color: gray;
         }
+
+        /* Popup styles */
+        .popup {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px #aaa;
+            padding: 32px;
+            max-width: 400px;
+            margin: auto;
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+
+        .popup h1 {
+            color: #c00;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            z-index: 900;
+        }
     </style>
 </head>
 
@@ -132,6 +163,13 @@
         MITRE ATT&CK T1486 | CryptoLocker Simulation | Red Team Payload UI
     </div>
 
+    <div class="overlay" id="popupOverlay"></div>
+    <div class="popup" id="popupNotice">
+        <h1>Important Notice</h1>
+        <p>This is a popup notification from the NSFW DLL.</p>
+        <p>You may close this window.</p>
+    </div>
+
     <script>
         function copyText(text) {
             navigator.clipboard.writeText(text);
@@ -153,6 +191,24 @@
         }
 
         let timer = setInterval(updateCountdown, 1000);
+
+        // Show popup function
+        function showPopup() {
+            document.getElementById('popupOverlay').style.display = 'block';
+            document.getElementById('popupNotice').style.display = 'block';
+        }
+
+        // Close popup function
+        function closePopup() {
+            document.getElementById('popupOverlay').style.display = 'none';
+            document.getElementById('popupNotice').style.display = 'none';
+        }
+
+        // Event listener to close popup when clicking on the overlay
+        document.getElementById('popupOverlay').addEventListener('click', closePopup);
+
+        // Automatically show the popup after 2 seconds (for demonstration)
+        setTimeout(showPopup, 2000);
     </script>
 </body>
 </html>
