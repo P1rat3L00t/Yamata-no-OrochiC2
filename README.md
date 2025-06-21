@@ -1,6 +1,6 @@
 
 
-# Blue Fire: Fileless Malware Research (PoC)
+# Blu3Fir3: Fileless Malware Research (PoC)
 
 > **Warning**  
 > This project is **strictly for educational, authorized research, and penetration testing in isolated lab environments**.  
@@ -9,18 +9,13 @@
 
 ---
 
-![v5dlzdmvvy641](https://github.com/user-attachments/assets/ce6e59bf-ba3f-47ba-b167-ec17d8bfed92)
-
+![Blu3Fir3 Banner](https://github.com/user-attachments/assets/ce6e59bf-ba3f-47ba-b167-ec17d8bfed92)
 
 ---
 
 ## Table of Contents
 
 - [About](#about)
-- [Features](#features)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Build Instructions](#build-instructions)
 - [Technical Overview](#technical-overview)
 - [Attack Chain Example (PowerShell)](#attack-chain-example-powershell)
 - [Reconnaissance and LOLBins](#reconnaissance-and-lolbins)
@@ -39,7 +34,7 @@
 
 ## About
 
-**Yamata-no-OrochiC2** is a proof-of-concept (PoC) research project simulating advanced fileless malware and C2 (Command & Control) techniques for Windows 10/11. It leverages "Living Off the Land" tactics, built-in system binaries (LOLBins), and public exploits to demonstrate stealthy attacks without touching disk.
+**Blu3Fir3** is a proof-of-concept (PoC) research project simulating advanced fileless malware and C2 (Command & Control) techniques for Windows 10/11. It leverages "Living Off the Land" (LOLBins) and native Windows features for stealthy operation.
 
 **Primary Objectives:**
 - Enable cybersecurity professionals and students to study fileless malware behavior.
@@ -50,7 +45,7 @@
 
 ## Technical Overview
 
-This project focuses on simulating fileless ransomware and C2 attack chains, including:
+This project simulates fileless ransomware and C2 attack chains, including:
 
 - **Initial Access:** LOLBins download and execute payloads in memory.
 - **Privilege Escalation:** Print Spooler & HiveNightmare exploitation.
@@ -136,14 +131,14 @@ Attackers use `rundll32.exe`, `regsvr32.exe`, `powershell.exe` to execute payloa
 **Goal:** Hide payloads inside benign files, extract and execute with native tools.
 
 1. **Embed Payload:**
-    ```bash
-    copy /b nsfw.jpg + payload.7z nsfw.jpg
-    ```
+   ```bash
+   copy /b nsfw.jpg + payload.7z nsfw.jpg
+   ```
 2. **Extract & Decode:**
-    ```cmd
-    certutil -decode nsfw.jpg dropper.7z
-    7z x dropper.7z -oC:\Users\Public\
-    ```
+   ```cmd
+   certutil -decode nsfw.jpg dropper.7z
+   7z x dropper.7z -oC:\Users\Public\
+   ```
 
 ### Reflective DLL Injection
 
@@ -212,10 +207,10 @@ Demonstrate ransomware/wiper activity using only native binaries:
 ### Mitigation
 
 - Disable Print Spooler where unnecessary:
-    ```cmd
-    Stop-Service -Name Spooler -Force
-    Set-Service -Name Spooler -StartupType Disabled
-    ```
+  ```cmd
+  Stop-Service -Name Spooler -Force
+  Set-Service -Name Spooler -StartupType Disabled
+  ```
 - Apply all security patches, especially for Print Spooler and Hive ACL vulnerabilities.
 - Restrict LOLBins via AppLocker or Windows Defender Application Control (WDAC).
 - Deploy EDR/XDR solutions capable of detecting in-memory attacks and reflective loading.
