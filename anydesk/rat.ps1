@@ -94,9 +94,30 @@ function Install-AnyDesk {
     }
 }
 
+function Invoke-AdminPy {
+    param (
+        [string]$PythonPath = "python",
+        [string]$ScriptPath = "$PSScriptRoot\admin.py"
+    )
+    try {
+        Write-Host "[*] Invoking admin.py for AnyDesk admin tasks..."
+        $process = Start-Process -FilePath $PythonPath -ArgumentList "\"$ScriptPath\"" -NoNewWindow -Wait -PassThru
+        if ($process.ExitCode -eq 0) {
+            Write-Host "admin.py executed successfully."
+        } else {
+            Write-Host "[ERROR] admin.py exited with code $($process.ExitCode)"
+        }
+    } catch {
+        Write-Host "[ERROR] Failed to run admin.py: $_"
+    }
+}
+
 # --- MAIN EXECUTION ---
 Log-RegistryKeys -Keys $AnyDeskRegistryKeys -LogFile $LogPath
 Register-AnyDeskScheduledTask -TaskName $TaskName -ScriptPath $ScriptPath
+
+# Default: Chain to admin.py for admin tasks
+Invoke-AdminPy
 
 # Example: Call Install-AnyDesk with parameters (do not hardcode passwords in production)
 # Install-AnyDesk -Password "YourPassword" -AdminUsername "YourAdmin" -AdminPassword "YourAdminPassword"

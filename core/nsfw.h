@@ -2,25 +2,28 @@
 
 #include <windows.h>
 
-#ifdef BLU3_EXPORTS
-#define BLU3_API __declspec(dllexport)
+#ifdef NSFW_EXPORTS
+#define NSFW_API __declspec(dllexport)
 #else
-#define BLU3_API __declspec(dllimport)
+#define NSFW_API __declspec(dllimport)
 #endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-    BLU3_API int fnblu3(void);
-    BLU3_API BOOL ForcePopupReadmeHta();
-    BLU3_API BOOL ForcePopupReadmeHtaEx(const wchar_t* htaPath);
+    NSFW_API int fnnsfw(void);
+    NSFW_API BOOL ForcePopupReadmeHta();
+    NSFW_API BOOL ForcePopupReadmeHtaEx(const wchar_t* htaPath);
+    NSFW_API void XorEncryptDecrypt(char* data, size_t dataLen, const char* key, size_t keyLen);
+    NSFW_API void XorEncryptBuffer(char* buffer, size_t length, const char* key, size_t keyLen);
+    NSFW_API void XorDecryptBuffer(char* buffer, size_t length, const char* key, size_t keyLen);
 #ifdef __cplusplus
 }
 #endif
 
 #ifdef __cplusplus
-class BLU3_API Cblu3 {
+class NSFW_API Cnsfw {
 public:
-    Cblu3();
+    Cnsfw();
 };
 #endif
