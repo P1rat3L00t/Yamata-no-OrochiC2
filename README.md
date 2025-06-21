@@ -1,6 +1,6 @@
 
 
-# Blu3Fir3: Fileless Malware Research (PoC)
+# Fileless Malware Research (PoC)
 
 > **Warning**  
 > This project is **strictly for educational, authorized research, and penetration testing in isolated lab environments**.  
